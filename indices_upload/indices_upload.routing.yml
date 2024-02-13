@@ -1,0 +1,23 @@
+indices_upload.example:
+  path: '/indices-upload'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\indices_upload\Controller\IndicesUploadController::actualizacion'
+  requirements:
+    _permission: 'access content'
+
+indices_upload.settings_form:
+  path: '/admin/config/system/indices-upload'
+  defaults:
+    _title: 'Indices Upload settings'
+    _form: 'Drupal\indices_upload\Form\SettingsForm'
+  requirements:
+    _permission: 'administer indices_upload configuration'
+# CURL gestión de documentos
+indices_upload.curlgestion:
+  path: '/curl/gestion'
+  defaults:
+    _title: 'Curl Gestion'
+    _controller: '\Drupal\indices_upload\Controller\CurlGestionController::descargaDocumentos'
+  requirements:
+    _permission: 'access content'

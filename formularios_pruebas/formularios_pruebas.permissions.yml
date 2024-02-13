@@ -1,0 +1,4 @@
+administer formularios_pruebas configuration:
+  title: 'Administer formularios_pruebas configuration'
+  description: 'Optional description.'
+  restrict access: true

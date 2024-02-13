@@ -1,0 +1,8 @@
+api_rest.css:
+  version: 1.x
+  css:
+    theme:
+      css/api_rest.css: {}
+      
+  js:
+    js/api_rest.js: {}

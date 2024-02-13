@@ -1,0 +1,55 @@
+{{ attach_library("curso_module/curso_recetas.css") }}
+
+<div>
+  <h2>{{ receta["titulo"] }}</h2>
+</div>
+<div class="flex-container">
+  <div id="rimagen">
+    <img src={{ receta["imgComida"] }} alt={{ receta["titulo"] }} />
+    <ul class="receta">
+      <li>id receta: {{ receta["id"] }}</li>
+      <li>BEBIDA: {{ receta["bebida"] }}</li>
+      <li>CATEGORÍA: {{ receta["categoria"] }}</li>
+      <li>ÁREA: {{ receta["area"] }}</li>
+    </ul>
+    <button id="btn-ingredientes">Ingredientes</button>
+  </div>
+  <div id="rcontenido">
+    
+    <h3>INSTRUCCIONES</h3>
+    <p>{{ receta["instrucciones"] }}</p>
+  </div>
+</div>
+
+<div class="container-flex" id="categorias-recetas">
+  <ul class="receta">
+    <li>id receta: {{ receta["id"] }}</li>
+    <li>BEBIDA: {{ receta["bebida"] }}</li>
+    <li>CATEGORÍA: {{ receta["categoria"] }}</li>
+    <li>ÁREA: {{ receta["area"] }}</li>
+  </ul>
+  
+  <ul class="instrucciones">
+    <h3>INSTRUCCIONES</h3>
+    <li>{{ receta["instrucciones"] }}</li>
+  </ul>
+  <ul>
+    <li>IMAGEN: {{ receta["imgComida"] }}</li>
+    <img src={{
+      receta["imgComida"]
+    }}
+    alt={{
+      receta["titulo"]
+    }}/>
+    <li>TAGS: {{ receta["tags"] }}</li>
+  </ul>
+</div>
+{% set ingredientes = receta['ingredientes'] %}
+<div class="ingredientes">
+  <h3 class="allingredientes">INGREDIENTES</h3>
+  <ul>
+    {% for ingrediente in ingredientes %}
+    <li>{{ ingrediente }}</li>
+    {% endfor %}
+  </ul>
+</div>

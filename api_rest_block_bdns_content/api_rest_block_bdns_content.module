@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for api_rest_block_bdns_content module.
+ */
+
+ function api_rest_block_bdns_content_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) 
+ {
+
+    if($form_id == 'filter_form')
+    {
+        dpm('hemos entrado en el formulario');
+        $form['#attached']['library'][] = 'api_rest_block_bdns_content/api_rest.css';
+        $form['#attached']['library'][] = 'api_rest_block_bdns_content/api_rest.js';
+
+
+    }
+
+ }

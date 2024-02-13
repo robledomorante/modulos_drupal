@@ -1,0 +1,10 @@
+entity.encuesta_cgt.settings:
+  title: 'Encuesta cgt'
+  description: 'Configure an Encuesta cgt entity type.'
+  route_name:  entity.encuesta_cgt.settings
+  parent: system.admin_structure
+entity.encuesta_cgt.collection:
+  title: 'Encuesta cgts'
+  description: 'List of encuesta cgts.'
+  route_name: entity.encuesta_cgt.collection
+  parent: system.admin_content

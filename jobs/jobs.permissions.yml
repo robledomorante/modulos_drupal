@@ -1,0 +1,4 @@
+administer jobs:
+  title: 'Administrar empledos'
+  description: 'Permisos para administrar los empleos.'
+  restrict access: true

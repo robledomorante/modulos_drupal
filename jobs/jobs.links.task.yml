@@ -1,0 +1,22 @@
+jobs.settings_tab:
+  title: 'Settings'
+  route_name: entity.job.settings
+  base_route: entity.job.settings
+entity.job.view:
+  title: 'View'
+  route_name: entity.job.canonical
+  base_route: entity.job.canonical
+entity.job.edit_form:
+  title: 'Edit'
+  route_name: entity.job.edit_form
+  base_route: entity.job.canonical
+entity.job.delete_form:
+  title: 'Delete'
+  route_name: entity.job.delete_form
+  base_route: entity.job.canonical
+  weight: 10
+entity.job.collection:
+  title: 'Empleos'
+  route_name: entity.job.collection
+  base_route: system.admin_content
+  weight: 10

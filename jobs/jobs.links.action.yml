@@ -1,0 +1,6 @@
+jobs.add_form:
+  route_name: entity.job.add_form
+  title: Agregar empleo
+  appears_on:
+    - entity.job.colecction
+    - view.jobs.page_1

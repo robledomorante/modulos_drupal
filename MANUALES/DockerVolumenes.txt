@@ -1,0 +1,55 @@
+----------------------------------------
+VOLUMENES HOST
+----------------------------------------
+
+Ejemplo: vamos a crear un msyql con una base de datos llamada "db"
+En nuestro servidor vamos a crear primero una carpeta en opt llamada "mysql"
+$ sudo mkdir /opt/mysql
+En nuestra imagen si vamos a dockerhub y vemos en la imagen oficial de mysql donde guarda la bases de datos:
+$ /var/lib/mysql
+
+// montamos la imagen con todo lo que tenemos
+
+$ docker run -d --name db -p 3306:3306 -e "MYSQL_ROOT_PASSWORD=12345678" -v /opt/mysql:/var/lib/mysql mysql:5.7
+
+// Entramos en la base de datos creada y creamos tres base de datos test, test1, test2
+
+$ mysql -u root -h 127.0.0.1 -p12345678
+
+// borramos el contenedor y volvemos a crear y vemos como se mantiene la información
+
+----------------------------------------
+VOLUMENES ANÓNIMOS
+----------------------------------------
+$ docker run -d --name db -p 3306:3306 -e "MYSQL_ROOT_PASSWORD=12345678" -v /var/lib/mysql mysql:5.7
+
+¿Donde se guardan los volúmenes anónimos?
+
+$ docker info | grep -i  root // Buscamos el directorio de docker 
+
+ruta por defecto: $ /var/lib/docker/volumes
+
+--------------------------------------------
+CONTENEDORES COMPARTEN VOLUMEN
+--------------------------------------------
+EJEMPLO: $ docker run -d --name nginx -v $PWD/camon:/usr/share/nginx/html
+
+$PWD -> Ruta donde nos encontremos.
+
+
+---------------------------------------------
+COMANDOS HABITUALES VOLUMEN
+----------------------------------------------
+
+// listar volumenes
+$ docker volume ls
+// eliminar volúmenes
+$ docker rm volumen_name volumen_name
+$ docker volume ls -f  // eliminar volúmenes huerfanos
+$ docker volume prune // elimina todos los volúmenes.
+
+
+
+
+
+

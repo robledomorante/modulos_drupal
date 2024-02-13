@@ -1,0 +1,7 @@
+block.settings.curso_module_bloque_dos:
+  type: block_settings
+  label: 'bloque_dos block'
+  mapping:
+    foo:
+      type: string
+      label: Foo

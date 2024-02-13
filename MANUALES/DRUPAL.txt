@@ -1,0 +1,332 @@
+*************************************************************
+MENSAJES EN DRUPAL
+**************************************************************
+
+\Drupal::messenger()->addMessage('This is a regular message');
+\Drupal::messenger()->addStatus('This is a status message, meaning status is OK or successful (green).');
+\Drupal::messenger()->addError('This is an error message (red)');
+\Drupal::messenger()->addWarning('This is a warning message (orange)');
+
+#Ejemplo:
+$this->messenger()->addStatus($this->t('Your phone number is @number', ['@number' => $form_state->getValue('phone_number')]));
+
+***************************************************************
+FORMULARIO EN DRUPAL
+***************************************************************
+# TIPOLOGÍA DE FORMULARIO
+# Primero identificar el tipo de Formulario que se necesita en drupal
+
+1. FormBase: el formulrio genérico
+2. ConfigFormBase: el formulario de configuración.
+3. ConfirmFormBase: el formulario de conformación
+
+# METODOS
+
+getFormId()
+buildForm()
+ValidateForm()
+submitForm()
+
+# EJEMPLO DE FORMULARIO
+
+<?php
+
+namespace Drupal\example\Form;
+
+use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements an example form.
+ */
+class ExampleForm extends FormBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId() {
+    return 'example_form';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state) {
+    $form['phone_number'] = [
+      '#type' => 'tel',
+      '#title' => $this->t('Your phone number'),
+    ];
+    $form['actions']['#type'] = 'actions';
+    $form['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Save'),
+      '#button_type' => 'primary',
+    ];
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    if (strlen($form_state->getValue('phone_number')) < 3) {
+      $form_state->setErrorByName('phone_number', $this->t('The phone number is too short. Please enter a full phone number.'));
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $this->messenger()->addStatus($this->t('Your phone number is @number', ['@number' => $form_state->getValue('phone_number')]));
+  }
+
+}
+
+
+**********************************************************
+FORMULARIO DE CONFIGURACIÓN 
+**********************************************************
+
+1. In your_module.info.yml file, you define the configuration route:
+	configure: your_module.admin_settings
+2. In your_module.routing.yml file, you define the route:
+
+	your_module.admin_settings:
+	  path: '/admin/config/your_module'
+	  defaults:
+	    _form: '\Drupal\your_module\Form\ModuleConfigurationForm'
+	    _title: 'your_module configuration screen'
+	  requirements:
+	    _permission: 'administer site configuration'
+	    
+	    
+3. in your_module/src/Form/ModuleConfigurationForm.php you define the form:
+
+<?php
+
+namespace Drupal\your_module\Form;
+
+use Drupal\Core\Form\ConfigFormBase;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Defines a form that configures forms module settings.
+ */
+class ModuleConfigurationForm extends ConfigFormBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId() {
+    return 'your_module_admin_settings';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getEditableConfigNames() {
+    return [
+      'your_module.settings',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state) {
+    $config = $this->config('your_module.settings');
+    $form['your_message'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Your message'),
+      '#default_value' => $config->get('variable_name'),
+    ];
+    return parent::buildForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $this->config('your_module.settings')
+      ->set('variable_name', $form_state->getValue('your_message'))
+      ->save();
+    parent::submitForm($form, $form_state);
+  }
+
+}
+
+
+*******************************************
+Plantillas twig
+*******************************************
+https://www.drupaladicto.es/curso/plantillas-twig-uso-de-condicionales-y-campos?fbclid=IwAR0ja_OdPd4eer8zLhVEZzn9_v9zlX9GHhvx8S9QWpd8WuVU-CIn10aFV6c
+https://www.drupal.org/docs/theming-drupal?fbclid=IwAR3vmz8DnuefxcBc1swBS7bTsygM-JDotxbch6lnv_zSoyrtqKHciItQaFQ - theming Drupal
+https://www.drupal.org/docs/drupal-apis/services-and-dependency-injection/structure-of-a-service-file  -Servicios de drupal
+
+*************************************************************************
+Renderizar una tabla en Drupal
+*************************************************************************
+
+EJEMPLO 1
+-------------------------------------------
+
+use Drupal\Core\Render\Markup;
+
+$rows = [
+  [Markup::create('<strong>test 1</strong>'),'test'],
+  [Markup::create('<s>test 2</s>'), 'test'],
+  [Markup::create('<div>test 3</div>'), 'test'],
+];
+$header = [
+  'title' => t('Title'),
+  'content' => t('Content'),
+];
+$build['table'] = [
+  '#type' => 'table',
+  '#header' => $header,
+  '#rows' => $rows,
+  '#empty' => t('No content has been found.'),
+];
+return [
+  '#type' => '#markup',
+  '#markup' => render($build)
+];
+
+EJEMPLO 2
+------------------------------------------------
+OBTENER LOS REGISTROS
+function listar() {
+$database= \Drupal::database();
+  // Using the TableSort Extender is what tells  the query object that we
+  // are sorting.
+  $query = $database->select('datospersonales', 'dp')
+    ->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(5);
+  $query->fields('dp');
+
+  // Don't forget to tell the query object how to find the header information.
+  $result = $query
+    //->orderByHeader($header)
+    ->execute();
+
+  $rows = [];
+
+  global $base_url;
+  foreach ($result as $row) {
+    // Normally we would add some nice formatting to our rows
+    // but for our purpose we are simply going to add our row
+    // to the array.
+
+    $row= (array) $row;
+
+
+    // External Uri.
+    //use Drupal\Core\Url;
+    $url = Url::fromUri($base_url.'/form_example/'.$row['id']);
+    $ver_link = \Drupal::l(t('Ver'), $url);
+    $row['ver']=$ver_link;
+
+    $url = Url::fromUri($base_url.'/form_example/'.$row['id'].'/edit');
+    $editar_link = \Drupal::l(t('Editar'), $url);
+    $row['editar']=$editar_link;
+
+    $url = Url::fromUri($base_url.'/form_example/'.$row['id'].'/delete');
+    $eliminar_link = \Drupal::l(t('Eliminar'), $url);
+    $row['eliminar']=$eliminar_link;
+
+    $rows[] =  $row;
+  }
+
+return $rows;
+
+}
+
+FINAL DE OBTENER LOS REGISTROS
+
+BUILD RENDER FORM
+
+$contenido['linea2'] =  array(
+     '#markup' => '<i> Para crear nuevos registros, pulse clic en el siguiente botón '. render($project_link) . '</i><br><br>' ,
+    );
+
+    $rows=array();
+    $rows=listar(); // VIENE DE LA FUNCIÓN DE ARRIBA DE LISTAR.
+    //ksm(listar());
+    // Build a render array which will be themed as a table with a pager.
+     $contenido['table'] = [
+       '#rows' => $rows,
+       '#header' => [t('Id'), t('Nombre'), t('Apellido'), t('Email'), t('Celular'), t('Fecha'), t('Ver'), t('Editar'), t('Eliminar')],
+       '#type' => 'table',
+       '#empty' => t('No content available.'),
+     ];
+     $contenido['pager'] = [
+       '#type' => 'pager',
+       '#weight' => 10,
+     ];
+
+
+
+
+    return $contenido;
+
+
+***********************************************************
+REMPLAZAR TEXTO EN UN MENSAJE EN DRUPAL
+************************************************************
+ //$this->messenger()->addMessage('EL FORMULARIO SE HA ENVIDO');
+      $textHtml = $config = \Drupal::config('bz_suscripcion.settings');
+      $textoConsent = $textHtml->get('mensaje_contestacion.value');
+
+      $correo = $this->ficha['correo'];
+      $nombreCompleto = $this->ficha['nombreCompleto'];
+      //var_dump($correo);
+      $search = [
+        '[%nombreCompleto%]',
+        '[%email%]',
+      ];
+      $replace = [
+        $nombreCompleto,
+        $correo,
+      ];
+      $textoConsent = str_replace($search, $replace, $textoConsent);
+
+      $form ['final']= array (
+          '#type' => 'markup',
+          '#markup' => $textoConsent,
+          '#format' => 'full_html',
+
+      );
+
+****************************************************************
+   PLANTILLA FORMULARIO DRUPAL
+****************************************************************
+
+https://github.com/drmfraterni/modulos/blob/master/alterar_formulario/templates/proteccion.html.twig
+PARTE IMPORTANTE DE LA PLANTILLA TWIG PARA FORMULARIOS
+<form id="{{ formulario['#id']}}" method="{{ formulario['#method'] }}">
+
+
+	<div id="solicitante" class="nueva-solicitud">
+		<div class="datos-solicitante"> 
+			<div class="row dto-form-sol">
+				<div class="col-12">
+					<div class="col-12 tit-sol">
+						<h3> {{ formulario['datos_solicitante']['#title'] }</h3>
+					</div>
+				</div>
+				[...]
+
+				<div class="col-12">
+					<div class="col-8 col-md-4 boton-enviar">{{ formulario.actions}}</div>
+				</div>
+
+// PARTE IMPORTANTE DE LA PLANTILLA TWIG PARA FORMULARIOS.
+
+				{{formulario.form_build_id }}
+				{{formulario.form_token }}
+				{{formulario.form_id }}
+					
+
+			
+		</div>
+	</form>

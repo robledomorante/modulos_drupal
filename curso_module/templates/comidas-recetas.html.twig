@@ -1,0 +1,29 @@
+{{ attach_library("curso_module/curso_recetas.css") }}
+
+
+<div><h2>{{ categoria }}</h2></div>
+
+
+<div class="container-flex" id="categorias-recetas">
+
+
+  {% if comidas %}
+  
+    {% for comida in comidas %}
+      <div class="item-categorias" id="{{ comida['id'] }}">    
+        <h5>{{ comida["titulo"] }}</h5>
+        <p>
+          <img src={{ comida["imgComida"] }} alt={{comida["titulo"]}}/>
+          <div class="btn-container">
+            <a class="btn btn-ir" href="{{ comida['urlReceta'] }}" role="button">Ir</a>
+          </div>      
+        </p>
+     </div>
+    {% endfor %}
+  {% else %}
+  <div class="item-categorias">    
+    <h5>CONEXIÓN FALLIDA</h5>
+    <p> {{ error }}</p>
+ </div>  
+  {% endif %}
+</div>

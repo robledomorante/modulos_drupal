@@ -1,0 +1,165 @@
+curso_module.primera_ruta:
+  path: '/curso/controller/pagina'
+  defaults:
+    _title: 'Prueba de Módulo'
+    _controller: '\Drupal\curso_module\Controller\CursoModuleController::home'
+  requirements:
+    _permission: 'access content'
+# Pasamos un parámetro cualquiera
+curso_module.ruta_parametro:
+  path: '/curso/param/{pagina}'
+  defaults:
+    _title: 'Ruta con Parámetros'
+    _controller: '\Drupal\curso_module\Controller\CursoModuleController::pagparam'
+  requirements:
+    _permission: 'access content'
+# Pasamos como parámetro un nodo
+curso_module.ruta_node:
+  path: '/curso/vernodo/{node}'
+  defaults:
+    _title: 'Parámetro un nodo'
+    _controller: '\Drupal\curso_module\Controller\CursoModuleController::pasarnode'
+  requirements:
+    _permission: 'access content'
+# Pasamos un id de nodo y lo cargamos dentro de la función correspondiente
+curso_module.ruta_idnode:
+  path: '/curso/obtener-nodo/{id}'
+  defaults:
+    _title: 'Parámetro un nodo'
+    _controller: '\Drupal\curso_module\Controller\CursoModuleController::obtenernode'
+  requirements:
+    _permission: 'access content'
+# calculadora pasando dos parámetros
+curso_module.ruta_calculator:
+  path: '/curso/calcula/{num1}/{num2}'
+  defaults:
+    _title: 'Operaciones sobre dos números'
+    _controller: '\Drupal\curso_module\Controller\CursoModuleController::calculator'
+  requirements:
+    _permission: 'access content'
+# calculadora dos parámetros opcionales
+curso_module.calculator:
+  path: '/curso/calculator/{num1}/{num2}'
+  defaults:
+    _title: 'Calculadora'
+    _controller: '\Drupal\curso_module\Controller\CursoModuleController::calculadora'
+    num1: 20
+    num2: 10
+  requirements:
+    _permission: 'access content'
+# Entidades como parámetros
+curso_module.user:
+  path: '/curso/pages/user/{user}'
+  defaults:
+    _title: 'Entidades como parámetros'
+    _controller: '\Drupal\curso_module\Controller\CursoModuleController::user'
+  requirements:
+    _permission: 'access content'
+# Clases para trabajar rutas
+curso_module.links:
+  path: '/curso/pages/links'
+  defaults:
+    _title: 'Clases para trabajar rutas'
+    _controller: '\Drupal\curso_module\Controller\CursoModuleController::links'
+  requirements:
+    _permission: 'access content'
+# WebServices
+curso_module.webservices:
+  path: '/curso/webservices'
+  defaults:
+    _title: 'Clases para trabajar rutas'
+    _controller: '\Drupal\curso_module\Controller\WebServicesController::posts'
+  requirements:
+    _permission: 'access content'
+# API de Pokemon    
+curso_module.pokemon:
+  path: '/curso/pokemon'
+  defaults:
+    _title: 'Acceso a la base de datos de Pokemon'
+    _controller: '\Drupal\curso_module\Controller\CursoModuleController::pokemon'
+  requirements:
+    _permission: 'access content'
+
+# API de Recetas    
+curso_module.categorias_recetas:
+  path: '/curso/categorias'
+  defaults:
+    _title: 'CATEGORIAS DE RECETAS'
+    _controller: '\Drupal\curso_module\Controller\CursoModuleController::categorias'
+  requirements:
+    _permission: 'access content'
+
+curso_module.comida_recetas:
+  path: '/curso/recetas/{categoria}'
+  defaults:
+    _title: 'COMIDAS'
+    _controller: '\Drupal\curso_module\Controller\CursoModuleController::comidas'
+  requirements:
+    _permission: 'access content'
+
+curso_module.receta:
+  path: '/curso/comida/{id}'
+  defaults:
+    _title: 'COMIDAS'
+    _controller: '\Drupal\curso_module\Controller\CursoModuleController::receta'
+  requirements:
+    _permission: 'access content'
+
+# Ejemplo de formulario
+curso_module.example:
+  path: '/curso-module/form/example'
+  defaults:
+    _title: 'Form-Example'
+    _form: 'Drupal\curso_module\Form\ExampleForm'
+  requirements:
+    _permission: 'access content'
+# Ejemplo de formulario propuesto por el curso de Forcontu
+curso_module.simple:
+  path: '/curso/forms/simple'
+  defaults:
+    _title: 'Simple Form'
+    _form: 'Drupal\curso_module\Form\SimpleForm'
+  requirements:
+    _permission: 'access content'
+# Enlazamos con el menú principal de opciones
+curso_module.admin_curso_pages:
+  path: '/admin/forcontu/curso_pages'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Curso Pages'
+  requirements:
+    _access: 'TRUE'
+# Enlazamos con el menú principal de opciones
+curso_module.admin_curso:
+  path: '/admin/forcontu/curso_pages'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Curso Pages'
+  requirements:
+    _access: 'TRUE'
+# Prueba de Página con Ajax: cargamos los artículos desde un bloque a la página.
+cuso_module.page_ajax:
+  path: 'page-ajax'
+  defaults:
+    _title: 'Page with Ajax'
+    _controller: '\Drupal\curso_module\Controller\PageAjaxController::build'
+  requirements:
+    _permission: 'access content'
+# Pruebas con curl para páginas externas json
+curso_module.webservice_curl:
+  path: '/json/curl'
+  defaults:
+    _title: 'CONEXION CURL'
+    _controller: '\Drupal\curso_module\Controller\WebServicesController::conexioncurl'
+  requirements:
+    _permission: 'access content'
+# Pruebas con la api de Provincias del estado
+curso_module.apiestado:
+  path: '/allprovincias/{page}/{pageSize}'
+  defaults:
+    _title: 'Todas las provincias'
+    _controller: '\Drupal\curso_module\Controller\ApiEstadoController::provincias'
+    page: 0
+    pageSize: 10    
+  requirements:
+    _permission: 'access content'

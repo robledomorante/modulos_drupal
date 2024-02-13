@@ -1,0 +1,16 @@
+encuesta_cgt.example:
+  path: '/encuesta-cgt/example'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\encuesta_cgt\Controller\EncuestaCgtController::build'
+  requirements:
+    _permission: 'access content'
+
+
+entity.encuesta_cgt.settings:
+  path: 'admin/structure/encuesta-cgt'
+  defaults:
+    _form: '\Drupal\encuesta_cgt\Form\EncuestaCgtSettingsForm'
+    _title: 'Encuesta cgt'
+  requirements:
+    _permission: 'administer encuesta cgt'

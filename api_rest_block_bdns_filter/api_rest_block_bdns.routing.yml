@@ -1,0 +1,7 @@
+api_rest_block_bdns.example:
+  path: '/api-rest-block-bdns-filter/kkkexample'
+  defaults:
+    _title: 'Filter Example'
+    _controller: '\Drupal\api_rest_block_bdns_filter\Controller\ApiRestBlockBdnsFilterController::build'
+  requirements:
+    _permission: 'access content'

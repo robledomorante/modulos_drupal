@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <p>POKEMON API</p>
+  <p>Dirección de la API: <br/> https://datosabiertos.ayto-arganda.es/dataset/1901a9d0-b250-4e9d-88a7-285aefe2c76b/resource/f7686945-2e03-4279-a51b-0128761f5064/download/eventos-deportivos.-abril-2023.json</p>
+  <p>Catálogo de datos libres <a href="https://datos.gob.es/es/catalogo?res_format_label=JSON">Catálogo de datos</a></p>
+  <div class="container-flex" id="pokemons">
+
+    {% for post in posts %}
+    <div class="item-pokemon" id="{{ 'pokemon-' ~ post['id'] }}"> 
+        <h5>{{ post['name'] }}</h5>
+        <p><img src={{ post['picture'] }} alt={{ post['name'] }} data-id={{ post['id'] }} ></p>
+    </div> 
+    {% endfor %}
+
+    <div id="dialog" title="POKEMON SELECCIONADO">
+      <p>Ficha del POKEMON:</br></p>
+    </div>
+  </div>
+
+  <div id="mostrar">
+    <h3>Los POKEMON elegidos:</h3>
+    <div id="mostrarAll" class="container-flex"></div>
+    
+
+  </div>
+
+</div> 
+
+   
+
+
+

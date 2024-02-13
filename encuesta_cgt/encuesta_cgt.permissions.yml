@@ -1,0 +1,3 @@
+administer encuesta cgt:
+  title: 'Administer encuesta cgt settings'
+  restrict access: true

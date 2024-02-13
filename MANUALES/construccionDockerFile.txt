@@ -1,0 +1,241 @@
+DOCKER:
+
+1. Creamos el dockerfile con todo lo que necesita para correr
+	FROM sistema operativo
+	RUN yum install httpd -y   
+	CMD apachectl -DFOREGROUND
+	
+	// FRON sistema operativo sobre el que corre
+	// RUN Comando instalador del servidor en este caso httpd // intrucciones de linux
+	// CMD Arrancamos el apac7he en centos
+ 
+2. Construimos la imagen comando. $docker build -t apache-centos:apache-cmd // $docker build -t nombre:tag
+Ejemplo: $ docker build -t apache-centos:apache-pruebas. // recuerda el punto de recursivo.
+
+3. Corremos esa imagen en un contenedor $docker cd run -d --name apache apache-centos:apache-cmd
+Ejemplo. $docker run -d --name apache -p 8080:80 apache-centos:apache-pruebas
+
+ALGUNOS COMANDOS DE DOCKER
+$ docker image ls  //imagenes
+$ docker ps -a // contenedores
+$ docker start [nombre]
+$ docker stop [nombre]
+$ docker logs [contenedor]
+#borrar un contenedor
+$ docker rm -fv [nombre o id]
+#borrar una imagen o varias
+$ docker image rm [nombre de la imagen]
+$ docker rmi [nombre de la imagen]
+# trabajo con redes
+$ docker network ls  - inspeccionar todas las redes del docker
+$ docker network inspect bridge
+$ docker network inspect host
+# crear una nueva red
+$ docker network create test
+# borrar una red
+$ docker network rm mi_red
+
+Parar unos servicios en marcha crtl+C 
+
+Ver imagenes y borrar imágenes
+
+$ docker rmi Image Image
+
+$ docker images purge   // imagenes sin etiquetar
+
+$ docker images -a // enumerar todas las imagenes
+
+$ docker rmi nombre:tag   -  ejemplo. $ docker rmi centos:prueba1
+
+$ docker rmi centos:prueba1 centos:lastest  // podemos eliminar varias imagenes a la vez
+
+$ docker rmi $(docker images -a -q) // elimina todas las imagenesdock
+
+UTILIZAR UN DOCKEFILE CON OTRO NOMBRE
+
+Vamos a llamar al Dockerfile con el nombre my-dockerfile
+
+$ docker build -t test -f my-dockerfile
+
+
+BUSCAR Y BORRAR IMÁGES HUÉRFANAS (dangling)
+
+$ docker images -f dangling=true   // buscar
+$ docker images -f dangling=true -q | xargs docker rmi     // elimina todas la imágenes huérfanas
+
+
+
+Ver contenedores y borrar contenedores
+
+$docker ps -a // visualizo los contenedores activos
+$docker rm -fv nombreDelContenedor // sirve para borrar los contenedores
+
+ESTRUCTURA DE DOCKERFILE
+
+FROM
+RUN
+COPY/ADD
+ENV
+WORKDIR
+EXPOSE
+LABEL
+USER
+VOLUMEN
+CMD
+
+FROM el sistema operativo que va a utilizar nuestra imagen
+
+Descargamos el prueba de la plantilla web al directorio de docker-images que habíamos creado anteriormente
+
+EJEMPLO DE DOCKERFILE
+
+FROM centos:7
+
+RUN yum install httpd -y
+
+COPY prueba /var/www/html
+
+CMD apachectl -DFOREGROUND
+
+------------------------------
+
+Lo que hace es que manda la plantilla al directorio del servidor apache por defecto para que la ejecute.
+
+ENV = SIRVE PARA INTRODUCIR VARIABLES DE ENTORNO
+Luego aplicamos el RUN para que esta variable corra
+
+ENV contenido prueba
+RUN echo "$contenido" > /var/www/html/prueba.html
+
+
+EJEMPLO DE DOCKERFILE
+
+FROM centos:7
+
+RUN yum install httpd -y
+
+COPY prueba /var/www/html
+
+ENV contenido prueba
+
+RUN echo "$contenido" > /var/www/html/prueba.html
+
+CMD apachectl -DFOREGROUND
+
+------------------------------
+
+WORKDIR: directorio en el que estamos trabajando
+
+EJEMPLO DE DOCKERFILE
+
+FROM centos:7
+
+RUN yum install httpd -y
+
+WORKDIR /var/www/html
+
+COPY prueba .
+
+ENV contenido prueba
+
+RUN echo "$contenido" > /var/www/html/prueba.html
+
+CMD apachectl -DFOREGROUND
+
+------------------------------
+
+EXPOSE 8080 EXPONES UN PUERTO QUE NO ESTÁ POR DEFECTO EN APACHE
+
+OTRO EJEMPLO DE DOCKERFILE CON MÁS DE UN USUARIO -----------------------------------------------
+
+FROM centos:7
+
+RUN yum install httpd -y
+
+COPY prueba /var/www/html
+
+RUN echo "$(whoami)" > /var/www/html/user1.html  //damos permisos sobre esta carpeta a root
+
+RUN useradd galapruebas  // creamos al nuevo usuario
+
+USER galapruebas  // nos posicionamos en el usuario nuevo
+
+RUN echo "$(whoami)" > /tmp/user2.html  // creamos con ese usuario un archivo en la carpeta temporal
+
+USER root // volvemos a utilizar el root
+
+RUN cp /tmp/user2.html  /var/www/html/user2.html  // copiamos el archivo temporal del usuario nuevo y lo pasamos a var/www/html para ejecutarlo con root.
+
+CMD apachectl -DFOREGROUND
+
+--------------------------------------------
+DOCKERFILE NGINX CON PHP
+--------------------------------------------
+
+FROM centos:7    
+// SISTEMA OPERATIVO CON CENTOS
+
+COPY ./conf/nginx.repo /etc/yum.repos.d/nginx.repo     
+// COPIAMOS EL REPOSITIVORIO DE REPO
+// EN GOOGLE PONERMOS nginx repor file
+// http://nginx.org/en/linux_packages.html#RHEL-CentOS  
+
+
+// GOOGLE  install ius repo centos 7 - https://ius.io/setup
+// yum install \
+// https://repo.ius.io/ius-release-el7.rpm \
+// https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+//  https://centos.pkgs.org/7/ius-x86_64/  paquetes de php7 para centos
+
+
+RUN                                                                          \
+  yum -y install nginx --enablerepo=nginx                                 && \
+  yum -y install  https://repo.ius.io/ius-release-el7.rpm                 && \
+  yum -y install                                                             \
+    php71u-fpm                                                               \
+    php71u-opcache                                                           \
+    php71u-cli                                                               \
+    php71u-mysqlnd                                                           \
+    php71u-soap                                                              \
+    php71u-xml                                                               \
+    php71u-zip                                                               \
+    php71u-json                                                              \
+    php71u-mcrypt                                                            \
+    php71u-mbstring                                                          \
+    php71u-zip                                                               \
+    php71u-gd                                                                \
+     --enablerepo=ius-archive && yum clean all
+
+EXPOSE 80 443
+
+VOLUME /var/www/html /var/log/nginx /var/log/php-fpm /var/lib/php-fpm
+
+// GOOGLE  nginx php-fpm vhost example - https://gist.github.com/lukearmstrong/7155390
+
+COPY ./conf/nginx.conf /etc/nginx/conf.d/default.conf
+
+
+COPY ./bin/start.sh /start.sh
+
+COPY index.php /var/www/html/index.php
+
+// CMD tenemos que iniciar primero NGINX y luego PHP. Tenemos que asociar una archivo start.sh ya que el CMD, solo nos deja meter una línea. 
+
+RUN chmod +x /start.sh
+
+CMD /start.sh
+
+
+----------------------------------------------------------------------
+    GIT DRUPAL https://github.com/ricardoamaro/drupal8-docker-app
+----------------------------------------------------------------------
+
+
+ENV contenido prueba
+
+RUN echo "$contenido" > /var/www/html/prueba.html
+
+CMD apachectl -DFOREGROUND
+
+
+

@@ -1,0 +1,10 @@
+name: Mensajes Boulder Zone
+type: module
+description: Mensajes de contacto recibidos por BOULDER ZONE.
+configure: bz_mensajes.description
+package: Curso
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:node
+  - examples:examples
+

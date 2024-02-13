@@ -1,0 +1,22 @@
+entity.encuesta_cgt.settings:
+  title: 'Settings'
+  route_name: entity.encuesta_cgt.settings
+  base_route: entity.encuesta_cgt.settings
+entity.encuesta_cgt.view:
+  title: 'View'
+  route_name: entity.encuesta_cgt.canonical
+  base_route: entity.encuesta_cgt.canonical
+entity.encuesta_cgt.edit_form:
+  title: 'Edit'
+  route_name: entity.encuesta_cgt.edit_form
+  base_route: entity.encuesta_cgt.canonical
+entity.encuesta_cgt.delete_form:
+  title: 'Delete'
+  route_name: entity.encuesta_cgt.delete_form
+  base_route: entity.encuesta_cgt.canonical
+  weight: 10
+entity.encuesta_cgt.collection:
+  title: 'Encuesta cgts'
+  route_name: entity.encuesta_cgt.collection
+  base_route: system.admin_content
+  weight: 10

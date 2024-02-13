@@ -1,0 +1,8 @@
+curso_indicadores.example:
+  path: '/curso-indicadores/example'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\curso_indicadores\Controller\CursoIndicadoresController::build'
+  requirements:
+    _permission: 'access content'
+

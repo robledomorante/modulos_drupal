@@ -1,0 +1,5 @@
+name: Api REST Block BDNS Filter Content
+type: module
+description: Provides filter content from BDNS site.
+package: Akis
+core_version_requirement: ^9 || ^10

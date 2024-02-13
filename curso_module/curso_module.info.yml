@@ -1,0 +1,8 @@
+name: curso module
+type: module
+description: Modulo para el curso
+package: Curso
+core_version_requirement: ^9 || ^10
+dependencies:
+  - node
+  - user

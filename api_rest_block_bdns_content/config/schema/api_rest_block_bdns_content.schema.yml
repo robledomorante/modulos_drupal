@@ -1,0 +1,8 @@
+# Schema for the configuration files of the api_rest_block_bdns module.
+api_rest_block_bdns_content.settings:
+  type: config_object
+  label: 'api_rest_block_bdns_content settings'
+  mapping:
+    example:
+      type: string
+      label: 'Example Content'

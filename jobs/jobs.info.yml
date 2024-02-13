@@ -1,0 +1,11 @@
+name: Empleos
+type: module
+description: Provides additional functionality for the site
+package: Curso
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:field_ui
+  - drupal:text
+  - drupal:views
+  - drupal:rest
+configure: entity.job.settings

@@ -1,0 +1,20 @@
+curso_module.css:
+  version: 1.x
+  css:
+    theme:
+      css/curso_module.css: {}
+      
+  js:
+    js/curso_module.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.ui.dialog
+
+curso_recetas.css:
+  version: 1.x
+  css:
+    theme:
+      css/curso_recetas.css: {}
+  js:
+    js/prueba.js: {}
+

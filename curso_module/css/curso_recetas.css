@@ -1,0 +1,95 @@
+.container-flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+}
+
+.item-categorias {
+  background-color: rgb(223, 231, 228);
+  padding: 0.2rem;
+  margin: 5px;
+  border: solid 0.2rem #c7dbeb;
+}
+
+.item-categorias h5 {
+  background-color: #96b9d6;
+  text-align: center;
+  padding: 0.2rem;
+}
+
+.item-categorias p img {
+  width: 10rem;
+  height: 9rem;
+  margin: 0.2rem;
+  border: solid 0.2rem #3e5364;
+  background: #e9e7e7;
+  padding: 0.2rem;
+}
+
+/* BOTONES */
+
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
+  width: 5vw;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.btn {
+  flex: 1 1 auto;
+  margin: 1px;
+  padding: 3px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  /* text-shadow: 0px 0px 10px 
+rgba(0,0,0,0.2);*/
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+}
+
+/* <- buton css starts */
+
+.btn:hover {
+  background-position: right center; /* 
+change the direction of the change here */
+}
+
+.btn-ir {
+  background-image: linear-gradient(
+    to right,
+    #3375bb 20%,
+    #2d2d82 50%,
+    #03244a 100%
+  );
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#rimagen {
+  width: 400px;
+  flex-grow: 2;
+}
+
+#rimagen img{
+  object-fit: cover;
+  width: 100%;
+
+}
+
+#rcontenido {
+  background-color: rgb(161, 188, 231);
+  width: 300px;
+  flex-grow: 1;
+}

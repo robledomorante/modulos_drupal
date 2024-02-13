@@ -1,0 +1,56 @@
+.container-flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+}
+
+.item-pokemon {
+  width: 12rem;
+  height: 18rem;
+  margin: 0.5rem;
+  border: solid 0.2rem #5cb8f9;
+  background: #E1E1E1;
+  padding: 1.2rem;
+  cursor:pointer;
+}
+
+.item-pokemon h5 {
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.item-pokemonpeq {
+  width: 8rem;
+  height: 12rem;
+  margin: 0.2rem;
+  border: solid 0.2rem #5cb8f9;
+  background: #E1E1E1;
+  padding: 0.5rem;
+  cursor:pointer;
+}
+
+.item-pokemonpeq h5 {
+  font-weight: 300;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.item-pokemonpeq img {
+  height: 6rem;
+  width: 5rem;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+
+#dialog{
+  display: none;
+  
+}

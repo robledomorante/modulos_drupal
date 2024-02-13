@@ -1,0 +1,9 @@
+services:
+  curso_module.repetir:
+    class: Drupal\curso_module\Services\Repetir
+    arguments: ['@messenger', '@entity_type.manager']
+  curso_module.serviceweb:
+    class: Drupal\curso_module\Services\ServiceWeb
+    arguments: ['@http_client']
+  curso_module.servicecurlweb:
+    class: Drupal\curso_module\Services\ServiceCurlWeb

@@ -1,0 +1,7 @@
+block.settings.curso_indicadores_block:
+  type: block_settings
+  label: 'Curos indicadores block block'
+  mapping:
+    foo:
+      type: string
+      label: Foo

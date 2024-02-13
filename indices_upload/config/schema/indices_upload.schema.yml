@@ -1,0 +1,8 @@
+# Schema for the configuration files of the Indices Upload module.
+indices_upload.settings:
+  type: config_object
+  label: 'Indices Upload settings'
+  mapping:
+    example:
+      type: string
+      label: 'Example'

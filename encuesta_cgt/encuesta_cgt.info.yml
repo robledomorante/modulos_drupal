@@ -1,0 +1,10 @@
+name: Encuesta cgt
+type: module
+description: Encuentas sobre las subida de sueldo de la CGT
+package: Módulos de CGT
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:field_ui
+  - drupal:text
+  - drupal:views
+  - drupal:rest

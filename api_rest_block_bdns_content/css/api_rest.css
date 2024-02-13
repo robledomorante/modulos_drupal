@@ -1,0 +1,13 @@
+p.sin-resultados {
+    border: 1px solid #2494db;
+    padding: 1rem;
+    background-color: #e1e8ed;
+    align-items: center;
+}
+
+.convoca {
+    margin: 2rem 0rem;
+    padding: 0.5rem 1.2rem;
+    border: 0.2rem solid #2494db;
+    background-color: #e4e7e9;
+}

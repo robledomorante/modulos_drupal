@@ -1,0 +1,8 @@
+name: Formularios pruebas
+type: module
+description: Módulo para la implementación de diferentes formularios
+package: Curso
+core_version_requirement: ^9 || ^10
+configure: formularios_pruebas.settings
+dependencies:
+  - node

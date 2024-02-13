@@ -1,0 +1,199 @@
+--------------------------------------------------------
+          CONTENEDORES DE DOCKER
+--------------------------------------------------------
+
+Para crear un contenedor necesitamos una imagen
+
+$ docker run -d imagen 
+
+$ docker run -d -p 8080:8080  // puerto 8080 de la máquina y luego el puerto 8080 de la máquina.
+
+$ docker run -d -p 9090:8080 jenkins 
+
+// podemos tener varios contenedores corriendo al mismo tiempo corriendo por distintos puertos
+
+docker run -d -p 8080:80 --name jenkins jenkins
+Recuerda: -p host:container
+
+
+BORRAR CONTENEDORES
+
+$ docker ps -a  // nos lista todas los contenedores
+$ docker rm -fv [id o nombre contenedor]  // nos borra un contenedor
+Ejemplo: $ docker rm -fv $(docker ps -aq)
+
+
+RENOMBRAR UN CONTENEDOR
+
+$ docker run -d -p 9090:8080 rename [romantic_ptolemu] [jenkins]
+$ docker run -d -p 9090:8080 rename [nombre antiguo] [nuevo nombre]
+$ docker run -d -p 9090:8080 rename romantic_ptolemu jenkins
+
+// borrar todos los contenedores que están corriendo
+
+$ docker ps -q   // nos muestra los id de los contenedores que están corriendo
+$ docker ps -q | xargs docker rm -f
+
+DETENER UN CONTENEDOR
+
+$ docker stop [id]
+$ docker stop d2d7658555d
+
+LEVANTAR UN CONTENEDOR
+
+$ docker start jenkins-test
+$ docker restart jenkins-test  // reiniciar el contenedor
+
+SABER CUANTO CONSUME UN CONTENEDOR
+
+$docker stats mydb1
+
+----------------------------------------------------------------------
+SI QUEREMOS OPERAR DENTRO DEL SISTEMA OPERATIVO DEL CONTENEDOR
+-----------------------------------------------------------------------
+
+// si queremos operar con una terminar dentro del sistema operativo
+que hemos creado en el contenedor a través de la imagen tenemos que hacerlo 
+de la siguiente manera:
+
+$ docker exec -ti jenkins-test bash
+// si queremos ingresar como usuario root
+
+$docker exec -u root -ti jenkins-test bash
+
+-------------------------------------------------
+VARIABLES DE ENTORNO
+--------------------------------------------------
+Las podemos crear de dos formas las variables de entorno, o bien desde el Dockerfile o desde el run, cuando corremos el contenedor.
+
+Cuando corremos el contenedor:
+
+$ docker run -dti -e "prueba=4321" --name prueba1 imagen
+
+// Ahora ingresamos en el contenedor 
+
+$ docker exec -ti prueba1 bash
+
+[root@ss2814067d]# env  // nos aparece todas las variables de entorno y entre ellas
+
+prueba1=4321
+
+------------------------------------------------
+COPIAR ARCHIVOS DE LINUX A CONTENEDOR DOCKER
+-------------------------------------------------
+
+docker cp /Users/marko/my_site/web/modules/contrib/search_api_solr/solr-conf/6.x/. container_solr:/opt/solr/server/solr/test_core/conf
+
+CONTAINER ID   IMAGE       COMMAND                  CREATED         STATUS                     PORTS                                       NAMES
+c9f01d672c04   solr:8      "docker-entrypoint.s…"   4 days ago      Up 12 hours                0.0.0.0:8983->8983/tcp, :::8983->8983/tcp   solrdata_solr_1
+f37db7f0ffa0   solr:8      "docker-entrypoint.s…"   4 days ago      Exited (143) 4 days ago                                                solr_demo
+8c2bdf02d37b   wordpress   "docker-entrypoint.s…"   18 months ago   Exited (0) 16 months ago                                               wp
+c9ce46a9d655   mysql:5.7   "docker-entrypoint.s…"   18 months ago   Exited (0) 16 months ago                                               wp-mysql
+
+Examples
+Copy a local file into container
+ docker cp ./some_file CONTAINER:/work
+Copy files from container to local path
+ docker cp CONTAINER:/var/logs/ /tmp/app_logs
+Copy a file from container to stdout. Please note cp command produces a tar stream
+ docker cp CONTAINER:/var/logs/app.log - | tar x -O | grep "ERROR"
+Corner cases
+
+------------------------------------------------
+CONTENEDOR CON LA IMAGEN DE MYSQL OFICIAL
+------------------------------------------------
+
+// imagen 01_container.png
+// La imagen es mysql:5.7
+$ docker run -d --name mydb1 -e "MYSQL_ROOT_PASSWORD=12345678" mysql:5.7
+
+$ docker run -d -p 3333:3306 --name mydb1 -e "MYSQL_ROOT_PASSWORD=12345678" mysql:5.7 //puerto para hacerlo visible
+
+$ docker run -d -p 3333:3306 --name mydb1 -e "MYSQL_ROOT_PASSWORD=12345678" -e "MYSQL_DATABASE=docker-db" -e "MYSQL_USER=docker-user" -e "MYSQL_PASSWORD=87654321" mysql:5.7
+
+Cuando vemos el contenedor para entrar dentro de la base de datos nos vamos a:
+
+$ docker exec -u root -ti mydb1 bash
+root@e6cacd333605:/# mysql -u docker-user -p docker-db
+password: 87654321
+
+$docker logs -f mydb1
+
+
+// La imagen es mysql:latest
+$ docker run -d --name mydb2 -e "MYSQL_ROOT_PASSWORD=12345678" mysql:latest
+$ docker run -d -p 3306:3306 --name mydb2 -e "MYSQL_ROOT_PASSWORD=12345678" mysql:latest
+
+// container creadas con las dos imágenes de arriba 02_container.png
+
+Podemos ver los logs de las base de datos con el siguiente comando: $docker logs -f mydb1
+
+
+----------------------------------------------------------------
+LIMITAR RECURSOS A UN CONTENEDOR
+----------------------------------------------------------------
+
+$ docker run --help | grep memo  //para saber las opciones de run y dentro de este de memori
+
+$ docker run -d -m "500mb" --name mongo2 mongo  // limitamos los recursos del contenedor.
+$ docker run -d -m "50gb" --name mongo2 mongo  // limitamos los recursos del contenedor.
+
+$ docker stats mongo2
+
+// limitar la cpus de nuestro ordenador
+
+primero buscamos cuanto cpus tenemos:
+$ grep "model name" /proc/cpuinfo | wc -l
+limitamos las cpus
+$ docker run -d -m "1gb" --cpuset-cpus 0-1 --name mongo4 mongo
+$ docker run -d -m "1gb" --name mongo3 mongo
+
+---------------------------------------------------------------------
+COPIAR ARCHIVOS DE NUESTRO ORDENADOR AL CONTENEDOR DE DOCKER
+---------------------------------------------------------------------
+
+$ docker cp index.html apache:/usr/local/apache2/htdocs
+$ docker cp [archivo a copiar] [nombre de contenedor: apache] [ruta del contenedor]
+$ docker cp index.html apache:/usr/local/apache2/htdocs/index.html
+//sobreescribe
+
+// EJEMPLO:
+Copiar el archivo /var/log/postgres/postgres.log desde tu contenedor llamado db hacia /opt de tu máquina.
+$ docker cp container:/path/del/archivo /path/de/tu/maquina. 
+$ docker cp db:/var/log/postgres/postgres.log /opt
+Para enviar un archivo, lo haces al contrario: 
+$ docker cp /path/de/tu/maquina container:/path/container
+
+-----------------------------------------------------------------------
+DOCKER COMMIT -> NO ES BUENA PRÁCTICA -> UTILIZAR VOLÚMENES
+------------------------------------------------------------------------
+$ docker commit centos centos-resultante
+$ docker commit [contenedor] [nuevo contenedor] // nos crea una imagen nuevo con el nombre [nuevo contenedor]
+// en este ejemplo la imagen se llamaría centos-resultante.
+
+Todo lo que esté bajo volúmenes no se guarda
+
+--------------------------------------------------------------------
+CONTENEDOR QUE SE AUTODESTRUYA
+-------------------------------------------------------------------
+
+$ docker run -rm -ti --name centos1 centos:php bash
+
+$ docker run [-rm // que se autodestruya] [ti] [nombre del contenedor] [nombre de la imagen] [bash // para entrar]
+// Cuando salgamos del contenedor se borra automáticamente
+
+-----------------------------------------------------------------------
+CAMBIAR EL DOCUMENT ROOT DE DOCKER
+------------------------------------------------------------------------
+
+$ docker info | grep -i root
+Se puede mover el archivo raiz de docker
+
+
+
+
+
+
+
+
+

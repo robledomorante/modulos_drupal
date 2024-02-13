@@ -1,0 +1,6 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for api_rest_block_bdns_filter module.
+ */

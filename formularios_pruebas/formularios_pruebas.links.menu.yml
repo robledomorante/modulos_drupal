@@ -1,0 +1,6 @@
+formularios_pruebas.settings_form:
+  title: 'Formularios pruebas'
+  description: 'Configure Formularios pruebas.'
+  parent: system.admin_config_system
+  route_name: formularios_pruebas.settings_form
+  weight: 10

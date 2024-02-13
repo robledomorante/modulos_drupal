@@ -1,0 +1,12 @@
+curso_module.admin_curso:
+  title: 'Módulo Curso'
+  parent: system.admin
+  description: 'Curso Page menu link'
+  route_name: curso_module.admin_curso
+  weight: -11
+
+curso_module.admin_curso_pages:
+  title: 'Curso Page'
+  parent: curso_module.admin_curso
+  description: 'Curso Page menu link'
+  route_name: curso_module.admin_curso_pages

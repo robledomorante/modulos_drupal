@@ -1,0 +1,6 @@
+indices_upload.settings_form:
+  title: 'Indices Upload'
+  description: 'Configure Indices Upload.'
+  parent: system.admin_config_system
+  route_name: indices_upload.settings_form
+  weight: 10

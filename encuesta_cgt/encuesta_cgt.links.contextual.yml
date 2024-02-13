@@ -1,0 +1,10 @@
+entity.encuesta_cgt.edit_form:
+  route_name: entity.encuesta_cgt.edit_form
+  group: encuesta_cgt
+  title: Edit
+
+entity.encuesta_cgt.delete_form:
+  route_name: entity.encuesta_cgt.delete_form
+  group: encuesta_cgt
+  title: Delete
+  weight: 10

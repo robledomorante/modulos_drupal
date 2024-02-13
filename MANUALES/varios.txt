@@ -1,0 +1,132 @@
+****************************************
+INSTALAR DRUSH
+****************************************
+
+https://www.linode.com/docs/guides/how-to-install-drush-on-ubuntu-18-04/
+
+Necesitamos tener instalado git
+
+Move the composer.phar file to /usr/local/bin/, so that it can be accessed from any directory:
+
+$ sudo mv composer.phar /usr/local/bin/composer
+
+Composer has a few PHP dependencies it needs in order to run. Install them on your Ubuntu system:
+
+$ sudo apt-get install php-xml, zip
+
+Crear un enlace simbolico en directorio local de Composer, /usr/local/bin/composer, and the system’s bin directory, /usr/bin/:
+
+$ sudo ln -s /usr/local/bin/composer /usr/bin/composer
+
+A través de git clonamos el Drush en el directorio,  /usr/local/src/drush:
+
+$ sudo git clone https://github.com/drush-ops/drush.git /usr/local/src/drush
+
+Cambiamos el directori de trabajo a un nuevo directori Drush:
+
+    cd /usr/local/src/drush
+    
+***Importante: a traves de git cambiamos de version por ejemplo a la Druhs 8.4.8 o Drush 9.1.0 ya para Drupal la 10 no funciona.
+
+$ sudo git checkout 8.4.2
+
+Crear un enlace simbólico entre el directorio de Drush /usr/local/src a /usr/bin
+
+$ sudo ln -s /usr/local/src/drush/drush /usr/bin/drush
+
+Ahora corremos el Composer install:
+
+$ sudo composer install
+
+Comprobamos que todo funciona correctamente:
+
+Drush --version
+
+
+
+
+
+**********************************
+	ftp
+**********************************
+documentación: https://goto-linux.com/es/2019/10/30/como-configurar-el-servidor-ftp-en-ubuntu-20.04-focal-fossa-linux/
+
+archivo de configuración: /etc/vsftpd.conf
+sudo systemctl restart vsftpd
+
+Mas información: https://www.hostinger.es/tutoriales/como-configurar-servidor-ftp-en-ubuntu-vps/#Paso-3-8211-Crear-el-directorio-de-usuarios
+
+
+
+
+***********************************
+          ssh
+***********************************
+
+sudo apt install ssh
+// configuramos el ssh del servidor
+sudo nano /etc/ssh/sshd_config
+
+
+
+
+**********************************************
+              Enlaces simbólicos
+**********************************************
+
+Los tengo en la carpeta /home/david/proyectos/
+
+ln -s /home/david/proyectos/CEJ/prueba /var/www/html/prueba
+
+ln -s /home/david/proyectos/DRUPAL/demo /var/www/html/demo
+
+
+
+***********************************************
+             Activar Debug Twig
+***********************************************
+
+ACTIVAR MODO DESARROLLO DE DRUPAL EN LOCAL. https://www.drupal.org/docs/8/theming/twig/debugging-twig-templates
+
+Activar el archivo setting.local.php
+
+Renombrar /sites/settings.example.local.php -> /sites/default/settings.local.php Descomentar la siguiente linea:
+
+ # if (file_exists(__DIR__ . ‘/settings.local.php’)) {
+ # include __DIR__ . ‘/settings.local.php’;
+ # }
+Deshabilitar la Cache
+
+En el archivo sites/default/settings.local.php file, descomentar las siguientes líneas. $settings['container_yamls'][] = DRUPAL_ROOT . '/sites/development.services.yml'; $settings['cache']['bins']['render'] = 'cache.backend.null'; $settings['cache']['bins']['dynamic_page_cache'] = 'cache.backend.null';
+
+Deshabilitar el Cache de Twig y activar el Twig Debugging
+
+Tenemos que habilitar para en sites/default/services.yml Si no exite services.yml copiamos el default.services.yml lo renombramos a services.yml Cambiar dentro de services.yml los siguientes parámetros: parameters: twig.config: debug: true auto_reload: true cache: false
+
+
+***************************************
+COMANDOS DRUSH
+****************************************
+
+//COMANDOS GENERALES
+$ drush cr                 			para limpiar caché
+$ drush en [módulo]        			para artivar un módulo
+$ drush en muprespa_pruebas			ejemplo de activación de módulos.
+$ drush pm-uninstall [módulo]			para desinstalar un módulo.
+$ drush pm-uninstall muprespa_pruebas		ejemplo de desinstalación de módulos.
+
+//MÓDULOS
+drush
+$ drush en [module] Ejemplo: drush en migrate_upgrade -> instalar módulo
+$ drush dl [module] -> descargar módulo
+$ drush pml -> LISTAR MÓDULOS
+$ drush pmu [module] -> desinstalar
+$ drush dis -> DESHABILITAR MÓDULO
+$ drush en -> HABILITAR MÓDULO
+
+//MIGRACIÓN
+
+$ drush migrate-import bz_usuarios
+$ drush migrate-import bz_productos --update
+$ drush ms -> listar todas la migraciones
+

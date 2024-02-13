@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <p>Ejemplo 1 de webservices con un API externa</p>
+  <p>Dirección de la API: <br/> https://datosabiertos.ayto-arganda.es/dataset/1901a9d0-b250-4e9d-88a7-285aefe2c76b/resource/f7686945-2e03-4279-a51b-0128761f5064/download/eventos-deportivos.-abril-2023.json</p>
+  <p>Catálogo de datos libres <a href="https://datos.gob.es/es/catalogo?res_format_label=JSON">Catálogo de datos</a></p>
+ <div class="row">
+ {% for post in posts %}
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{ post['actividad'] }}</h5>
+      <p class="card-text">
+        <ul>
+          <li>{{ post['instalacion'] }}</li>
+          <li>{{ post['fecha'] }}</li>
+          <li>{{ post['hora'] }}</li>          
+          <li>{{ post['entidad'] }}</li>
+        </ul>
+      </p>
+    </div>
+  </div>
+  {% endfor %}
+</div> 
+</div>

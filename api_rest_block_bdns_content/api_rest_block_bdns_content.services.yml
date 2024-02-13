@@ -1,0 +1,10 @@
+services:
+    api_rest_block_bdns_content.getcontenturl:
+      class: Drupal\api_rest_block_bdns_content\Services\getContentUrl
+      arguments: ['@http_client']
+    cache.bdns:
+      class: Drupal\Core\Cache\CacheBackendInterface
+      tags:
+        - { name: cache.bin }
+      factory: cache_factory:get
+      arguments: [bdns]

@@ -1,0 +1,5 @@
+encuesta_cgt.add_form:
+  title: 'Add encuesta cgt'
+  route_name: entity.encuesta_cgt.add_form
+  appears_on:
+    - entity.encuesta_cgt.collection

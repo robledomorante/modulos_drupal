@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for curso_indicadores module.
+ */
+
+
+ /**
+ * Implements hook_theme().
+ */
+function curso_indicadores_theme($existing, $type, $theme, $path)
+{
+
+    return [
+        'indicadoresApi' => [
+            'variables' => [
+                'titulo' => 'BLOQUE DE INDICADORES',
+                'elementos' => NULL,
+            ]
+        ],
+    ];
+}

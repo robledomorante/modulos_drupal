@@ -1,0 +1,23 @@
+formularios_pruebas.example:
+  path: '/formularios-pruebas/example'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\formularios_pruebas\Controller\FormulariosPruebasController::build'
+  requirements:
+    _permission: 'access content'
+
+formularios_pruebas.settings_form:
+  path: '/admin/config/system/formularios-pruebas'
+  defaults:
+    _title: 'Formularios pruebas settings'
+    _form: 'Drupal\formularios_pruebas\Form\SettingsForm'
+  requirements:
+    _permission: 'administer formularios_pruebas configuration'
+
+formularios_pruebas.step:
+  path: '/form/step'
+  defaults:
+    _title: 'Formulario Step'
+    _form: 'Drupal\formularios_pruebas\Form\StepForm'
+  requirements:
+    _permission: 'access content'

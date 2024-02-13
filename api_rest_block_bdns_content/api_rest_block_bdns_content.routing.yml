@@ -1,0 +1,7 @@
+api_rest_block_bdns_content.example:
+  path: '/api-rest-block-bdns-content/example'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\api_rest_block_bdns_content\Controller\ApiRestBlockBdnsContentController::build'
+  requirements:
+    _permission: 'access content'

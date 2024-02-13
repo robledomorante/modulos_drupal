@@ -1,0 +1,135 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Encuesta cgt module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function encuesta_cgt_install() {
+  \Drupal::messenger()->addStatus(__FUNCTION__);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function encuesta_cgt_uninstall() {
+  \Drupal::messenger()->addStatus(__FUNCTION__);
+}
+
+/**
+ * Implements hook_schema().
+ */
+function encuesta_cgt_schema() {
+  $schema['encuesta_cgt'] = [
+    'description' => 'Table description.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique record ID.',
+      ],
+      'uuid' => [
+        'type' => 'varchar_ascii',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Type of the record.',
+      ],
+      'label' => [
+        'description' => 'The identifier of the data.',
+        'type' => 'varchar_ascii',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'status' => [
+        'description' => 'Boolean indicating whether this record is active.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'tiny',
+      ],
+      'created' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Timestamp when the record was created.',
+      ],
+      'changed' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Timestamp when last modified date',
+      ],
+      'pregunta1' => [
+        'description' => 'Do you think you have had a significant loss of purchasing power in recent years',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => NULL,
+        'size' => 'tiny',
+      ],
+      'pregunta2' => [
+        'description' => 'How would you rate the impact of the loss of purchasing power in the last two years on your daily life',
+        'type' => 'varchar_ascii',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'pregunta3' => [
+        'description' => 'Do you think ALTEN should alleviate this situation by making a fair increase in the workforce',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => NULL,
+        'size' => 'tiny',
+      ],
+      'pregunta4' => [
+        'description' => 'Do you consider that your salary is commensurate with the functions you perform at ALTEN',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => NULL,
+        'size' => 'tiny',
+      ],
+      'pregunta5' => [
+        'description' => 'Are you planning a change of company in the short term',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => NULL,
+        'size' => 'tiny',
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'type' => ['type'],
+      'uid' => ['uid'],
+      'status' => ['status'],
+    ],
+  ];
+
+  return $schema;
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function encuesta_cgt_requirements($phase) {
+  $requirements = [];
+
+  if ($phase == 'runtime') {
+    $value = mt_rand(0, 100);
+    $requirements['encuesta_cgt_status'] = [
+      'title' => t('Encuesta cgt status'),
+      'value' => t('Encuesta cgt value: @value', ['@value' => $value]),
+      'severity' => $value > 50 ? REQUIREMENT_INFO : REQUIREMENT_WARNING,
+    ];
+  }
+
+  return $requirements;
+}

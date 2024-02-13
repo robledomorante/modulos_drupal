@@ -1,0 +1,141 @@
+<?php
+
+/**
+ * @file
+ * Forcontu Pages module file.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+
+function curso_module_help($route_name, \Drupal\Core\Routing\RouteMatchInterface $route_match)
+{
+    switch ($route_name) {
+
+            // Main module help for the block module.
+        case 'help.page.curso_module':
+            return '<p>' . t('This module serves as an example to see how it 
+            is built and how to work with the controller,  with the routes, etc.  ') . $route_name . '</p>';
+        case 'entity.node.edit_form':
+            // https://api.drupal.org/api/drupal/core!modules!node!src!Entity!Node.php/class/Node
+            // propiedades y atributes de Node
+            $node = $route_match->getParameter('node');
+            $output = '';
+            $output .= '<p>' . t('Text A. This text is shown in every node edit form.
+            Current node is of type %type and its id is %id', [
+                '%type' => $node->getType(),
+                '%id' => $node->id()
+            ]) . '</p>';
+            if ($node->getType() == 'page') {
+                $output .= '<p>' . t('Text B. This text is shown only in Basic pages nodes.') . '</p>';
+            };
+            $output .= '<p> Este texto viene del hook_help, del curso_module.module</p>';
+
+            return $output;
+    }
+}
+
+// Alteramos el formulario de artículos básica //
+
+function curso_module_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+{
+    switch ($form_id) {
+        case 'node_article_form':
+            //dpm($form);      
+            
+            $form['title']['#attributes']['class'][] = 'poner-rojo';
+            //dpm($form['title']['#attributes']['class']);
+            $form['field_image']['#attributes']['class'][] = 'poner-rojo';
+            //dpm($form['field_image']['#attributes']['class']);
+            $form['body']['#attributes']['class'][] = 'poner-rojo';
+            //dpm($form['body']['#attributes']['class']);
+            $form['field_tags']['#attributes']['class'][] = 'poner-rojo';
+            //dpm($form['field_tags']['#attributes']['class']);
+            break;
+
+        default:
+            //dpm($form_id);
+            break;
+    }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update().
+ * 
+ * 
+ * @param \Drupal\node\NodeInterface $node
+ */
+
+function curso_module_node_update(\Drupal\node\NodeInterface $node)
+{
+    dpm('Drupal llama a nuestro hook_ENTITY_TYPE_update');
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ * 
+ * 
+ * @param \Drupal\node\NodeInterface $node
+ */
+
+function curso_module_node_insert(\Drupal\node\NodeInterface $node)
+{
+    dpm('Drupal llama a nuestro hook_ENTITY_TYPE_insert');
+}
+
+/**
+ * Implements hook_theme().
+ */
+function curso_module_theme($existing, $type, $theme, $path)
+{
+
+    return [
+        'curso_plantilla' => [
+            'variables' => [
+                'etiqueta' => NULL,
+                'descripcion' => NULL,
+                'tipo' => NULL,
+                'servicio' => NULL,
+            ]
+        ],
+        'curso_calculator' => [
+            'variables' => [
+                'operadores' => NULL,
+                'operacion' => NULL,
+            ]
+        ],
+        'curso_postslist' => [
+            'variables' => [
+                'posts' => NULL,
+            ]
+        ],
+        'pokemon' => [
+            'variables' => [
+                'posts' => NULL,
+            ]
+        ],
+        'categoria_recetas' => [
+            'variables' => [
+                'categorias' => NULL,
+            ]
+        ],
+        'comidas_recetas' => [
+            'variables' => [
+                'comidas' => NULL,
+                'categoria' => NULL,
+                'error' => NULL,
+                'title' => 'Prueba de título',
+            ]
+        ],
+        'receta' => [
+            'variables' => [
+                'receta' => NULL,
+                'title' => 'Prueba de Receta',
+            ]
+        ],
+
+    ];
+}

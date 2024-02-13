@@ -1,0 +1,6 @@
+# Simple link.
+entity.job.settings:
+  title: 'Empleos'
+  description: 'Configurar las entidades Empleo'
+  route_name: entity.job.settings
+  parent: system.admin_structure

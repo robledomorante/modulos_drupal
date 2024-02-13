@@ -1,0 +1,24 @@
+{{ dump(categorias) }}
+
+{{ attach_library("curso_module/curso_recetas.css") }}
+
+
+<div><h2>CATEGORIAS</h2></div>
+
+<div class="container-flex" id="categorias-recetas">
+  {% for categoria in categorias %}
+  <div class="item-categorias" id="{{ categoria['id'] }}">
+    <h5>{{ categoria["categoria"] }}</h5>
+    <p>
+      <img src={{ categoria["imgCategoria"] }} alt={{
+        categoria["categoria"]
+      }}
+      />
+      <div class="btn-container">
+        <a class="btn btn-ir" href="{{ categoria['urlReceta'] }}" role="button">Ir</a>
+      </div>
+      
+    </p>
+  </div>
+  {% endfor %}
+</div>

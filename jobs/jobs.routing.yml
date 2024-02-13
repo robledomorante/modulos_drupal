@@ -1,0 +1,7 @@
+entity.job.settings:
+  path: 'admin/structure/job'
+  defaults:
+    _title: 'Empleos'
+    _form: '\Drupal\jobs\Form\JobSettingsForm'
+  requirements:
+    _permission: 'administer jobs'

@@ -1,0 +1,6 @@
+name: Indices Upload
+type: module
+description: Solr Indices Update
+package: Curso
+core_version_requirement: ^9 || ^10
+configure: indices_upload.settings_form
