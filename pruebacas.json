@@ -1,0 +1,176 @@
+{
+    "idUsuario": 67,
+    "idAplicacion": 110,
+    "nombre": "Raquel",
+    "apellido1": "Prueba",
+    "apellido2": "Prueba",
+    "nif": "ZgYiywRODrf43W==",
+    "listPerfil": [
+        {
+            "idPerfil": 119,
+            "descripcion": "PruebaPerfil",
+            "listFuncionalidades": [
+                {
+                    "idFuncionalidad": 1,
+                    "cod_funcionalidad": "APL_LISTADO",
+                    "descripcion": "LISTADO DE APLICACIONES"
+                },
+                {
+                    "idFuncionalidad": 1,
+                    "cod_funcionalidad": "APL_LISTADO",
+                    "descripcion": "LISTADO DE APLICACIONES"
+                },
+                {
+                    "idFuncionalidad": 1,
+                    "cod_funcionalidad": "APL_LISTADO",
+                    "descripcion": "LISTADO DE APLICACIONES"
+                },
+                {
+                    "idFuncionalidad": 1,
+                    "cod_funcionalidad": "APL_LISTADO",
+                    "descripcion": "LISTADO DE APLICACIONES"
+                },
+                {
+                    "idFuncionalidad": 5,
+                    "cod_funcionalidad": "APL_DETALLES",
+                    "descripcion": "DETALLES DE LA APLICACION"
+                },
+                {
+                    "idFuncionalidad": 5,
+                    "cod_funcionalidad": "APL_DETALLES",
+                    "descripcion": "DETALLES DE LA APLICACION"
+                },
+                {
+                    "idFuncionalidad": 5,
+                    "cod_funcionalidad": "APL_DETALLES",
+                    "descripcion": "DETALLES DE LA APLICACION"
+                },
+                {
+                    "idFuncionalidad": 5,
+                    "cod_funcionalidad": "APL_DETALLES",
+                    "descripcion": "DETALLES DE LA APLICACION"
+                },
+                {
+                    "idFuncionalidad": 6,
+                    "cod_funcionalidad": "FNC_LISTADO",
+                    "descripcion": "LISTADO DE FUNCIONALIDADES"
+                },
+                {
+                    "idFuncionalidad": 6,
+                    "cod_funcionalidad": "FNC_LISTADO",
+                    "descripcion": "LISTADO DE FUNCIONALIDADES"
+                },
+                {
+                    "idFuncionalidad": 6,
+                    "cod_funcionalidad": "FNC_LISTADO",
+                    "descripcion": "LISTADO DE FUNCIONALIDADES"
+                },
+                {
+                    "idFuncionalidad": 6,
+                    "cod_funcionalidad": "FNC_LISTADO",
+                    "descripcion": "LISTADO DE FUNCIONALIDADES"
+                },
+                {
+                    "idFuncionalidad": 10,
+                    "cod_funcionalidad": "FNC_DETALLES",
+                    "descripcion": "DETELLES DE LA FUNCIONALIDAD"
+                },
+                {
+                    "idFuncionalidad": 10,
+                    "cod_funcionalidad": "FNC_DETALLES",
+                    "descripcion": "DETELLES DE LA FUNCIONALIDAD"
+                },
+                {
+                    "idFuncionalidad": 10,
+                    "cod_funcionalidad": "FNC_DETALLES",
+                    "descripcion": "DETELLES DE LA FUNCIONALIDAD"
+                },
+                {
+                    "idFuncionalidad": 10,
+                    "cod_funcionalidad": "FNC_DETALLES",
+                    "descripcion": "DETELLES DE LA FUNCIONALIDAD"
+                },
+                {
+                    "idFuncionalidad": 16,
+                    "cod_funcionalidad": "PER_LISTADO",
+                    "descripcion": "LISTADO DE PERFILES"
+                },
+                {
+                    "idFuncionalidad": 16,
+                    "cod_funcionalidad": "PER_LISTADO",
+                    "descripcion": "LISTADO DE PERFILES"
+                },
+                {
+                    "idFuncionalidad": 16,
+                    "cod_funcionalidad": "PER_LISTADO",
+                    "descripcion": "LISTADO DE PERFILES"
+                },
+                {
+                    "idFuncionalidad": 16,
+                    "cod_funcionalidad": "PER_LISTADO",
+                    "descripcion": "LISTADO DE PERFILES"
+                },
+                {
+                    "idFuncionalidad": 20,
+                    "cod_funcionalidad": "PER_DETALLES",
+                    "descripcion": "DETALLES DEL PERFIL"
+                },
+                {
+                    "idFuncionalidad": 20,
+                    "cod_funcionalidad": "PER_DETALLES",
+                    "descripcion": "DETALLES DEL PERFIL"
+                },
+                {
+                    "idFuncionalidad": 20,
+                    "cod_funcionalidad": "PER_DETALLES",
+                    "descripcion": "DETALLES DEL PERFIL"
+                },
+                {
+                    "idFuncionalidad": 20,
+                    "cod_funcionalidad": "PER_DETALLES",
+                    "descripcion": "DETALLES DEL PERFIL"
+                },
+                {
+                    "idFuncionalidad": 22,
+                    "cod_funcionalidad": "USU_LISTADO",
+                    "descripcion": "LISTADO DE USUARIOS"
+                },
+                {
+                    "idFuncionalidad": 22,
+                    "cod_funcionalidad": "USU_LISTADO",
+                    "descripcion": "LISTADO DE USUARIOS"
+                },
+                {
+                    "idFuncionalidad": 22,
+                    "cod_funcionalidad": "USU_LISTADO",
+                    "descripcion": "LISTADO DE USUARIOS"
+                },
+                {
+                    "idFuncionalidad": 22,
+                    "cod_funcionalidad": "USU_LISTADO",
+                    "descripcion": "LISTADO DE USUARIOS"
+                },
+                {
+                    "idFuncionalidad": 26,
+                    "cod_funcionalidad": "USU_DETALLES",
+                    "descripcion": "DETALLES DEL USUARIO"
+                },
+                {
+                    "idFuncionalidad": 26,
+                    "cod_funcionalidad": "USU_DETALLES",
+                    "descripcion": "DETALLES DEL USUARIO"
+                },
+                {
+                    "idFuncionalidad": 26,
+                    "cod_funcionalidad": "USU_DETALLES",
+                    "descripcion": "DETALLES DEL USUARIO"
+                },
+                {
+                    "idFuncionalidad": 26,
+                    "cod_funcionalidad": "USU_DETALLES",
+                    "descripcion": "DETALLES DEL USUARIO"
+                }
+            ]
+        }
+    ]
+}
